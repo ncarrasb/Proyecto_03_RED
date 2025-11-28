@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Xml;
 using UnityEngine;
 
-public class miprimerscript : MonoBehaviour
+public class PlayerController : MonoBehaviour
 
 {
     

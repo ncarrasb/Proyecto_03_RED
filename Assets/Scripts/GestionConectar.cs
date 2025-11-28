@@ -1,0 +1,36 @@
+using UnityEngine;
+using UnityEngine.UI;
+using Unity.Netcode;
+
+public class GestionConectar : MonoBehaviour
+{
+    public Button btnHost;
+    public Button btnClient;
+    public Button btnDesconectar;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void ConectarComoHost()
+    {
+        NetworkManager.Singleton.StartHost();
+    }
+
+    public void ConectarComoCliente()
+    {
+        NetworkManager.Singleton.StartClient();
+    }
+
+    public void Desconectar()
+    {
+        NetworkManager.Singleton.Shutdown();
+    }
+}
