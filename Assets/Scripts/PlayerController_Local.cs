@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Xml;
-using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 

@@ -22,15 +22,18 @@ public class GestionConectar : MonoBehaviour
     public void ConectarComoHost()
     {
         NetworkManager.Singleton.StartHost();
+        Debug.Log("Conectado como Host");
     }
 
     public void ConectarComoCliente()
     {
         NetworkManager.Singleton.StartClient();
+        Debug.Log("Conectado como Client");
     }
 
     public void Desconectar()
     {
         NetworkManager.Singleton.Shutdown();
+        Debug.Log("Desconectado");
     }
 }

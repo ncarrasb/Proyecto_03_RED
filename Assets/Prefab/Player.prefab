@@ -15,8 +15,7 @@ GameObject:
   - component: {fileID: 1420311756759406720}
   - component: {fileID: 5096139497623437072}
   - component: {fileID: 3341512526502943565}
-  - component: {fileID: 1255337402721944413}
-  - component: {fileID: -1598385753926290194}
+  - component: {fileID: 7935396075687820394}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -241,7 +240,7 @@ MonoBehaviour:
   RotationMaxInterpolationTime: 0.1
   ScaleLerpSmoothing: 1
   ScaleMaxInterpolationTime: 0.1
-  AuthorityMode: 0
+  AuthorityMode: 1
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
   SyncPositionX: 1
@@ -263,7 +262,7 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &1255337402721944413
+--- !u!114 &7935396075687820394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,25 +271,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1372933035999809712}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b40ca4cfd60e4d73b3ae0725ed8edb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c8e8cece5a735c4f82d42d3bbf7c3c4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::miprimerscript
-  speed: 2
-  mystate: 0
---- !u!114 &-1598385753926290194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1372933035999809712}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Components.NetworkRigidbody2D
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController_NB
   ShowTopMostFoldoutHeaderGroup: 1
-  NetworkRigidbodyBaseExpanded: 0
-  UseRigidBodyForMotion: 0
-  AutoUpdateKinematicState: 1
-  AutoSetKinematicOnDespawn: 1
+  speed: 5
+  mystate: 0
+  animPlayer1: {fileID: 9100000, guid: 770aac2cea0fd274ea330aa7348cf9a7, type: 2}
+  animPlayer2: {fileID: 9100000, guid: 0395afabdbb4cbd459fa92cd017a5a3f, type: 2}
