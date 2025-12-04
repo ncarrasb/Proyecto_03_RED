@@ -1,24 +1,23 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public class Carta : MonoBehaviour
+public class Carta : NetworkBehaviour
 {
     public string valor; // para asignarle un valor a cada carta 
-    public Sprite frontSprite; 
-    public Sprite backSprite;   
+    public Sprite frontSprite;
+    public Sprite backSprite;
 
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D boxCollider;
 
     private bool estaGirada = false;
 
-
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
-        spriteRenderer.sprite = backSprite; 
+        spriteRenderer.sprite = backSprite;
     }
-
 
     void Update()
     {
@@ -33,25 +32,39 @@ public class Carta : MonoBehaviour
         }
     }
 
-
-
     // Método para girar la carta
     public void GirarCarta()
     {
+        // Si esta carta no ha sido girada aún, la giramos
         if (!estaGirada)
         {
-            spriteRenderer.sprite = frontSprite;  // Muestra la parte frontal de la carta
-            estaGirada = true;
-
-            // Llama a la función para comprobar si la carta forma una pareja
-            GestorCartas gestorCartas = FindObjectOfType<GestorCartas>();  // Encuentra el script GestorCartas en la escena
-            gestorCartas.ComprobarPareja(this);  // Pasa esta carta como parámetro
-        }
-        else
-        {
-            spriteRenderer.sprite = backSprite;  // Vuelve a la parte trasera de la carta
-            estaGirada = false;
+            // Llamamos al RPC para que todos los clientes vean el giro
+            GirarCartaServerRpc(NetworkManager.Singleton.LocalClientId);
         }
     }
 
+    // Método ServerRPC para girar la carta en todos los clientes
+    [ServerRpc(RequireOwnership = false)]
+    public void GirarCartaServerRpc(ulong clientId)
+    {
+        // Verificar si el jugador es el propietario de la carta (usando NetworkObject)
+        if (NetworkObject.IsOwner)
+        {
+            // Realiza el giro
+            if (!estaGirada)
+            {
+                spriteRenderer.sprite = frontSprite;  // Muestra el frente de la carta
+                estaGirada = true;
+            }
+            else
+            {
+                spriteRenderer.sprite = backSprite;  // Muestra la parte trasera de la carta
+                estaGirada = false;
+            }
+
+            // Aquí podrías agregar más lógica para la comprobación de pareja, si lo necesitas
+            GestorCartas gestorCartas = FindObjectOfType<GestorCartas>();
+            gestorCartas.ComprobarPareja(this);
+        }
+    }
 }

@@ -4,6 +4,9 @@ using System.Collections;
 public class GestorCartas : MonoBehaviour
 {
     public GameObject[] cartasPrefabs;  // Los prefabs de las 12 cartas
+    public int numCartas = 12;
+    public float distanciaEntreCartas = 3f;
+    public Vector2 inicioPosicion;
     private Carta carta1;  // Primer carta volteada
     private Carta carta2;  // Segunda carta volteada
 
@@ -16,18 +19,44 @@ public class GestorCartas : MonoBehaviour
 
     void Start()
     {
+        CalcularInicioPosicion();
         RepartirCartas();
     }
 
-    // Reparte las cartas en la escena (esto ya lo tienes configurado)
+    // Calcular el punto de inicio para centrar las cartas
+    void CalcularInicioPosicion()
+    {
+        int cartasPorFila = 4;  // Número de cartas por fila
+        int filas = 3;  // Número de filas
+
+        // Calcular el ancho y la altura total de la cuadrícula de cartas
+        float anchoTotal = (cartasPorFila - 1) * distanciaEntreCartas;
+        float alturaTotal = (filas - 1) * distanciaEntreCartas;
+
+        // Calcular la posición de inicio para centrar las cartas
+        // El centro de la escena será el centro de la cuadrícula
+        inicioPosicion = new Vector2(-anchoTotal / 2, alturaTotal / 2);
+    }
+
+    // Reparte las cartas de manera aleatoria en las posiciones fijas
     void RepartirCartas()
     {
-        for (int i = 0; i < cartasPrefabs.Length; i++)
+        int cartasPorFila = 4;  // Número de cartas por fila
+        int filas = 3;  // Número de filas
+
+        for (int i = 0; i < numCartas; i++)
         {
-            // Creamos las cartas en posiciones aleatorias
-            float xPos = Random.Range(-3f, 3f);
-            float yPos = Random.Range(-2f, 2f);
-            Instantiate(cartasPrefabs[i], new Vector3(xPos, yPos, 0), Quaternion.identity);
+            // Calculamos la fila y la columna para cada carta
+            int fila = i / cartasPorFila;  // Determina la fila
+            int columna = i % cartasPorFila;  // Determina la columna
+
+            // Calculamos la posición para la carta
+            float xPos = inicioPosicion.x + columna * distanciaEntreCartas;
+            float yPos = inicioPosicion.y - fila * distanciaEntreCartas;
+
+            // Creamos una carta en la posición calculada
+            int cartaIndex = Random.Range(0, cartasPrefabs.Length);
+            Instantiate(cartasPrefabs[cartaIndex], new Vector3(xPos, yPos, 0), Quaternion.identity);
         }
     }
 

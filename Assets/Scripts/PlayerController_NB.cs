@@ -61,20 +61,6 @@ public class PlayerController_NB : NetworkBehaviour
         Debug.Log($"[OnNetworkSpawn] IsServer:{IsServer} IsOwner:{IsOwner} LocalClientId:{NetworkManager.Singleton.LocalClientId} OwnerClientId:{OwnerClientId} prefix:{prefix}");
     }
 
-    private void VoltearCarta()
-    {
-        // Lanza un raycast hacia abajo desde la posición del jugador para detectar si está sobre una carta
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero);  // Raycast hacia abajo
-
-        if (hit.collider != null)
-        {
-            Carta carta = hit.collider.GetComponent<Carta>();  // Asegúrate de que el objeto tocado tenga el script Carta
-            if (carta != null)
-            {
-                carta.GirarCarta();  // Volteamos la carta
-            }
-        }
-    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -98,7 +84,7 @@ public class PlayerController_NB : NetworkBehaviour
         else if (Input.GetKeyDown(KeyCode.X))
         {
             mystate = Estados.PRESS;
-            VoltearCarta();
+          
         }
         else
         {
