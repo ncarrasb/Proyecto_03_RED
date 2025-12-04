@@ -1,7 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
 
-public class Carta : NetworkBehaviour
+public class CartasController : NetworkBehaviour
 {
     public string valor; // para asignarle un valor a cada carta 
     public Sprite frontSprite;
@@ -21,15 +21,13 @@ public class Carta : NetworkBehaviour
 
     void Update()
     {
-        // Detecta el clic del jugador sobre la carta
-        if (Input.GetMouseButtonDown(0))  // Clic izquierdo del ratón
-        {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (boxCollider.OverlapPoint(mousePos))  // Comprobamos si el clic fue sobre la carta
+        
+            // Detecta si el jugador presiona la tecla "X"
+            if (Input.GetKeyDown(KeyCode.X) && IsOwner) // Solo el propietario puede presionar
             {
-                GirarCarta();  // Volteamos la carta si ha sido clickeada
+                GirarCarta();  // Volteamos la carta si ha sido presionada
             }
-        }
+        
     }
 
     // Método para girar la carta

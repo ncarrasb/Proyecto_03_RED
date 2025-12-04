@@ -1,14 +1,15 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GestorCartas : MonoBehaviour
 {
     public GameObject[] cartasPrefabs;  // Los prefabs de las 12 cartas
     public int numCartas = 12;
-    public float distanciaEntreCartas = 3f;
+    public float distanciaEntreCartas = 2f;
     public Vector2 inicioPosicion;
-    private Carta carta1;  // Primer carta volteada
-    private Carta carta2;  // Segunda carta volteada
+    private CartasController carta1;  // Primer carta volteada
+    private CartasController carta2;  // Segunda carta volteada
 
     private bool carta1Volteada = false;
     private bool carta2Volteada = false;
@@ -44,6 +45,26 @@ public class GestorCartas : MonoBehaviour
         int cartasPorFila = 4;  // Número de cartas por fila
         int filas = 3;  // Número de filas
 
+        // Creamos una lista con los índices de las cartas para mezclar
+        List<int> indices = new List<int>();
+
+        // Añadimos cada índice dos veces para duplicar las cartas
+        for (int i = 0; i < 6; i++)  // Solo 6 tipos de cartas
+        {
+            indices.Add(i);
+            indices.Add(i);
+        }
+
+        // Mezclamos los índices de las cartas para que las cartas sean distribuidas aleatoriamente
+        for (int i = 0; i < indices.Count; i++)
+        {
+            int temp = indices[i];
+            int randomIndex = Random.Range(i, indices.Count);
+            indices[i] = indices[randomIndex];
+            indices[randomIndex] = temp;
+        }
+
+        // Repartimos las cartas en las posiciones fijas (el índice mezclado indica cuál carta va a cada posición)
         for (int i = 0; i < numCartas; i++)
         {
             // Calculamos la fila y la columna para cada carta
@@ -55,13 +76,12 @@ public class GestorCartas : MonoBehaviour
             float yPos = inicioPosicion.y - fila * distanciaEntreCartas;
 
             // Creamos una carta en la posición calculada
-            int cartaIndex = Random.Range(0, cartasPrefabs.Length);
-            Instantiate(cartasPrefabs[cartaIndex], new Vector3(xPos, yPos, 0), Quaternion.identity);
+            Instantiate(cartasPrefabs[indices[i]], new Vector3(xPos, yPos, 0), Quaternion.identity);
         }
     }
 
     // Llamado cuando el jugador voltea una carta
-    public void ComprobarPareja(Carta cartaVolteada)
+    public void ComprobarPareja(CartasController cartaVolteada)
     {
         if (!carta1Volteada)
         {
@@ -82,13 +102,14 @@ public class GestorCartas : MonoBehaviour
             else
             {
                 // Si no son una pareja, espera un poco y luego las volteas de nuevo
-                StartCoroutine(VoltearCartasDeNuevo());
+                Debug.Log("¡A la próxima!");
+                StartCoroutine(GirarCartasDeNuevo());
             }
         }
     }
 
     // Espera un tiempo antes de voltear las cartas si no son una pareja
-    IEnumerator VoltearCartasDeNuevo()
+    IEnumerator GirarCartasDeNuevo()
     {
         yield return new WaitForSeconds(1f);  // Espera 1 segundo
 
