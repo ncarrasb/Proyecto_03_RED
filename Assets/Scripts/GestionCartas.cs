@@ -10,6 +10,10 @@ public class GestorCartas : MonoBehaviour
     private bool carta1Volteada = false;
     private bool carta2Volteada = false;
 
+    // Puntos de los jugadores
+    private int puntosJugador1 = 0;
+    private int puntosJugador2 = 0;
+
     void Start()
     {
         RepartirCartas();
@@ -18,20 +22,11 @@ public class GestorCartas : MonoBehaviour
     // Reparte las cartas en la escena (esto ya lo tienes configurado)
     void RepartirCartas()
     {
-        int cartasPorFila = 4;
-        int filas = 3;
-
         for (int i = 0; i < cartasPrefabs.Length; i++)
         {
-            // Calculamos la fila y la columna para cada carta
-            int fila = i / cartasPorFila;
-            int columna = i % cartasPorFila;
-
-            // Calculamos la posición para la carta
-            float xPos = -3 + columna * 2;  // Ajusta la distancia entre las cartas
-            float yPos = 2 - fila * 2;
-
-            // Creamos una carta en la posición calculada
+            // Creamos las cartas en posiciones aleatorias
+            float xPos = Random.Range(-3f, 3f);
+            float yPos = Random.Range(-2f, 2f);
             Instantiate(cartasPrefabs[i], new Vector3(xPos, yPos, 0), Quaternion.identity);
         }
     }

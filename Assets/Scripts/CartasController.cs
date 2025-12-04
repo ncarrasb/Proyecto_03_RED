@@ -11,6 +11,7 @@ public class Carta : MonoBehaviour
 
     private bool estaGirada = false;
 
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
