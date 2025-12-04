@@ -68,8 +68,8 @@ public class GestorCartas : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);  // Espera 1 segundo
 
-        carta1.VoltearCarta();  // Vuelve a voltear la primera carta
-        carta2.VoltearCarta();  // Vuelve a voltear la segunda carta
+        carta1.GirarCarta();  // Vuelve a voltear la primera carta
+        carta2.GirarCarta();  // Vuelve a voltear la segunda carta
 
         carta1Volteada = false;  // Resetea el estado
         carta2Volteada = false;  // Resetea el estado

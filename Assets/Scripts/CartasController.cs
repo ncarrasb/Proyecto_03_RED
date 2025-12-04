@@ -40,12 +40,17 @@ public class Carta : MonoBehaviour
         if (!estaGirada)
         {
             spriteRenderer.sprite = frontSprite;  // Muestra la parte frontal de la carta
-            estaGirada = true;  // Marca la carta como volteada
+            estaGirada = true;
+
+            // Llama a la función para comprobar si la carta forma una pareja
+            GestorCartas gestorCartas = FindObjectOfType<GestorCartas>();  // Encuentra el script GestorCartas en la escena
+            gestorCartas.ComprobarPareja(this);  // Pasa esta carta como parámetro
         }
         else
         {
             spriteRenderer.sprite = backSprite;  // Vuelve a la parte trasera de la carta
-            estaGirada = false;  // Marca la carta como no volteada
+            estaGirada = false;
         }
     }
+
 }
