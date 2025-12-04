@@ -1513,8 +1513,8 @@ MonoBehaviour:
   - {fileID: 1232593541193966381, guid: a12f2d0bd7776834f9933b8449af67e5, type: 3}
   - {fileID: 1232593541193966381, guid: a12f2d0bd7776834f9933b8449af67e5, type: 3}
   numCartas: 12
-  areaMin: {x: -5, y: -5}
-  areaMax: {x: 5, y: 5}
+  distanciaEntreCartas: 2
+  inicioPosicion: {x: -3, y: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
